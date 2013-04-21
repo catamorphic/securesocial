@@ -6,6 +6,7 @@
 # Files related to Play build or usage
 target
 logs
+dist
 
 # IDE and editors
 *~
