@@ -68,7 +68,10 @@ class GitHubProvider(application: Application) extends OAuth2Provider(applicatio
           throw new AuthenticationException()
         }
         case _ => {
-          val userId = (me \ Login).asOpt[String].getOrElse("")
+          val userId = (me \ Login).asOpt[String].getOrElse({
+            Logger.error("[securesocial] error retrieving login details from GitHub.") 
+            throw new AuthenticationException()             
+          })
           val displayName = (me \ Name).asOpt[String].getOrElse("")
           val avatarUrl = (me \ AvatarUrl).asOpt[String]
           val email = (me \ Email).asOpt[String].filter( !_.isEmpty )
